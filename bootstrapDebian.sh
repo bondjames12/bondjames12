@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# Check if the authkey is provided as an argument
+if [ -z "$1" ]; then
+  echo "Please provide the Tailscale authkey as the first argument."
+  exit 1
+fi
+
+authkey=$1
+
 # Update package lists
 sudo apt update
 
@@ -33,6 +41,12 @@ echo "$key_line" | sudo tee -a /home/colinweber/.ssh/authorized_keys > /dev/null
 sudo chown -R colinweber:colinweber /home/colinweber/.ssh
 sudo chmod 700 /home/colinweber/.ssh
 sudo chmod 600 /home/colinweber/.ssh/authorized_keys
+
+# Install Tailscale
+sudo curl -fsSL https://tailscale.com/install.sh | sh
+
+# Execute tailscale up with the provided authkey
+sudo tailscale up --authkey "$authkey"
 
 # Clean up the temporary file
 rm /tmp/bondjames12.keys
