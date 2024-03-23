@@ -25,22 +25,22 @@ sudo systemctl restart ssh
 # Download the keys file from GitHub
 curl -s https://github.com/bondjames12.keys -o /tmp/bondjames12.keys
 
-# Append " colinweber" to the first line of the downloaded file
-sed -i '1s/$/ colinweber/' /tmp/bondjames12.keys
+# Append " root" to the first line of the downloaded file
+sed -i '1s/$/ root/' /tmp/bondjames12.keys
 
 # Extract the first line from the modified file
 key_line=$(head -n 1 /tmp/bondjames12.keys)
 
 # Create the .ssh directory for the colinweber user if it doesn't exist
-sudo mkdir -p /home/colinweber/.ssh
+sudo mkdir -p /root/.ssh
 
 # Append the key line to the authorized_keys file
-echo "$key_line" | sudo tee -a /home/colinweber/.ssh/authorized_keys > /dev/null
+echo "$key_line" | sudo tee -a /root/.ssh/authorized_keys > /dev/null
 
 # Set proper permissions for the .ssh directory and authorized_keys file
-sudo chown -R colinweber:colinweber /home/colinweber/.ssh
-sudo chmod 700 /home/colinweber/.ssh
-sudo chmod 600 /home/colinweber/.ssh/authorized_keys
+sudo chown -R root:root /root/.ssh
+sudo chmod 700 /root/.ssh
+sudo chmod 600 /root/.ssh/authorized_keys
 
 # Install Tailscale
 sudo curl -fsSL https://tailscale.com/install.sh | sh
