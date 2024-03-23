@@ -12,7 +12,7 @@ authkey=$1
  apt update
 
 # Install OpenSSH and Ansible
- apt install -y openssh-server ansible
+ apt install -y openssh-server ansible curl
 
 # Configure SSH daemon
  sed -i 's/#Port 22/Port 22/' /etc/ssh/sshd_config
